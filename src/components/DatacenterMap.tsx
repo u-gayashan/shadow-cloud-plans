@@ -16,14 +16,47 @@ export const DatacenterMap = () => {
   return (
     <Card className="relative w-full max-w-4xl mx-auto bg-gradient-to-b from-card to-muted/20 border-2">
       <div className="aspect-[2/1] relative overflow-hidden rounded-lg bg-gradient-to-br from-background via-muted/10 to-muted/30">
-        {/* Stylized North America outline */}
-        <div className="absolute inset-0 opacity-10">
+        {/* Stylized North America outline - More visible */}
+        <div className="absolute inset-0 opacity-30">
           <svg viewBox="0 0 800 400" className="w-full h-full">
+            {/* Main continent shape */}
             <path
-              d="M100 200 Q200 150 300 180 Q400 160 500 170 Q600 160 700 180 L700 300 Q600 320 500 310 Q400 320 300 300 Q200 310 100 280 Z"
+              d="M120 280 
+                 Q140 200 180 180 
+                 Q220 160 280 170 
+                 Q320 150 380 160 
+                 Q420 140 480 150 
+                 Q540 135 600 145 
+                 Q640 130 680 140 
+                 L680 200 
+                 Q670 240 650 260 
+                 Q620 280 580 290 
+                 Q540 300 500 295 
+                 Q460 300 420 295 
+                 Q380 300 340 290 
+                 Q300 295 260 285 
+                 Q220 290 180 280 
+                 Q150 285 120 280 Z"
               fill="currentColor"
+              stroke="currentColor"
+              strokeWidth="2"
               className="text-foreground"
             />
+            {/* Great Lakes region */}
+            <ellipse cx="450" cy="220" rx="30" ry="15" fill="currentColor" className="text-foreground opacity-50" />
+            <ellipse cx="470" cy="210" rx="15" ry="8" fill="currentColor" className="text-foreground opacity-50" />
+          </svg>
+        </div>
+
+        {/* Grid lines for reference */}
+        <div className="absolute inset-0 opacity-5">
+          <svg viewBox="0 0 100 50" className="w-full h-full">
+            {[...Array(11)].map((_, i) => (
+              <line key={`v${i}`} x1={i * 10} y1="0" x2={i * 10} y2="50" stroke="currentColor" strokeWidth="0.5" />
+            ))}
+            {[...Array(6)].map((_, i) => (
+              <line key={`h${i}`} x1="0" y1={i * 10} x2="100" y2={i * 10} stroke="currentColor" strokeWidth="0.5" />
+            ))}
           </svg>
         </div>
 
@@ -31,7 +64,7 @@ export const DatacenterMap = () => {
         {datacenters.map((dc, index) => (
           <div
             key={index}
-            className="absolute transform -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
+            className="absolute transform -translate-x-1/2 -translate-y-1/2 group cursor-pointer z-10"
             style={{ left: dc.x, top: dc.y }}
           >
             {/* Pulse effect */}
@@ -42,7 +75,7 @@ export const DatacenterMap = () => {
             <div className="w-3 h-3 bg-primary rounded-full border-2 border-background shadow-lg relative z-10"></div>
             
             {/* Tooltip */}
-            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20">
               {dc.name}
             </div>
           </div>
@@ -53,22 +86,25 @@ export const DatacenterMap = () => {
           <defs>
             <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="currentColor" stopOpacity="0" />
-              <stop offset="50%" stopColor="currentColor" stopOpacity="0.1" />
+              <stop offset="50%" stopColor="currentColor" stopOpacity="0.15" />
               <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
             </linearGradient>
           </defs>
-          {datacenters.slice(0, -1).map((dc, index) => (
-            <line
-              key={index}
-              x1={dc.x}
-              y1={dc.y}
-              x2={datacenters[index + 1].x}
-              y2={datacenters[index + 1].y}
-              stroke="url(#connectionGradient)"
-              strokeWidth="1"
-              className="text-primary"
-            />
-          ))}
+          {datacenters.slice(0, -1).map((dc, index) => {
+            const nextDc = datacenters[index + 1];
+            return (
+              <line
+                key={index}
+                x1={dc.x}
+                y1={dc.y}
+                x2={nextDc.x}
+                y2={nextDc.y}
+                stroke="url(#connectionGradient)"
+                strokeWidth="1"
+                className="text-primary"
+              />
+            );
+          })}
         </svg>
       </div>
       
