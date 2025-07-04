@@ -27,18 +27,18 @@ const Index = () => {
       
       {/* Release Notification */}
       {showNotification && (
-        <Alert className="mb-6 mx-4 md:mx-8 mt-4 border-primary/20 bg-primary/5">
-          <AlertDescription className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <span>🎉 New KVM VPS Plans Released! Better performance at lower prices.</span>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={handleViewNewPlans}
-              className="shrink-0 w-full sm:w-auto"
-            >
-              View New Plans
-            </Button>
-          </AlertDescription>
+        <Alert className="mb-6 mx-auto w-full max-w-screen-xl px-4 md:px-8 mt-4 border-primary/20 bg-primary/5">
+        <AlertDescription className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-2">
+          <span>🎉 <strong>New KVM VPS Plans </strong>Released! Better performance at lower prices.</span>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleViewNewPlans}
+            className="shrink-0 w-full sm:w-auto"
+          >
+            View New Plans
+          </Button>
+        </AlertDescription>
         </Alert>
       )}
 
