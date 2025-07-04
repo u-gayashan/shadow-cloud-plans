@@ -1,4 +1,3 @@
-
 import { Card } from "@/components/ui/card";
 
 const datacenters = [
@@ -14,12 +13,12 @@ const datacenters = [
 
 export const DatacenterMap = () => {
   return (
-    <Card className="relative w-full max-w-4xl mx-auto bg-gradient-to-b from-card to-muted/20 border-2">
+    <Card className="relative w-full max-w-5xl mx-auto bg-gradient-to-b from-card to-muted/20 border-2">
       <div className="aspect-[2/1] relative overflow-hidden rounded-lg bg-gradient-to-br from-background via-muted/10 to-muted/30">
-        {/* Stylized North America outline - More visible */}
-        <div className="absolute inset-0 opacity-30">
+        {/* OpenStreetMap-style background with improved styling */}
+        <div className="absolute inset-0 opacity-40">
           <svg viewBox="0 0 800 400" className="w-full h-full">
-            {/* Main continent shape */}
+            {/* Improved North America outline */}
             <path
               d="M120 280 
                  Q140 200 180 180 
@@ -48,45 +47,52 @@ export const DatacenterMap = () => {
           </svg>
         </div>
 
-        {/* Grid lines for reference */}
-        <div className="absolute inset-0 opacity-5">
+        {/* Grid overlay for map-like appearance */}
+        <div className="absolute inset-0 opacity-10">
           <svg viewBox="0 0 100 50" className="w-full h-full">
             {[...Array(11)].map((_, i) => (
-              <line key={`v${i}`} x1={i * 10} y1="0" x2={i * 10} y2="50" stroke="currentColor" strokeWidth="0.5" />
+              <line key={`v${i}`} x1={i * 10} y1="0" x2={i * 10} y2="50" stroke="currentColor" strokeWidth="0.3" />
             ))}
             {[...Array(6)].map((_, i) => (
-              <line key={`h${i}`} x1="0" y1={i * 10} x2="100" y2={i * 10} stroke="currentColor" strokeWidth="0.5" />
+              <line key={`h${i}`} x1="0" y1={i * 10} x2="100" y2={i * 10} stroke="currentColor" strokeWidth="0.3" />
             ))}
           </svg>
         </div>
 
-        {/* Datacenter indicators */}
+        {/* Datacenter indicators with improved animations */}
         {datacenters.map((dc, index) => (
           <div
             key={index}
             className="absolute transform -translate-x-1/2 -translate-y-1/2 group cursor-pointer z-10"
             style={{ left: dc.x, top: dc.y }}
           >
-            {/* Pulse effect */}
+            {/* Enhanced pulse effects */}
             <div className="absolute w-8 h-8 bg-primary/20 rounded-full datacenter-pulse transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"></div>
             <div className="absolute w-6 h-6 bg-primary/30 rounded-full datacenter-pulse transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" style={{ animationDelay: '0.5s' }}></div>
+            <div className="absolute w-4 h-4 bg-primary/40 rounded-full datacenter-pulse transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" style={{ animationDelay: '1s' }}></div>
             
-            {/* Center dot */}
-            <div className="w-3 h-3 bg-primary rounded-full border-2 border-background shadow-lg relative z-10"></div>
+            {/* Center dot with better visibility */}
+            <div className="w-3 h-3 bg-primary rounded-full border-2 border-background shadow-lg relative z-10 group-hover:scale-125 transition-transform"></div>
             
-            {/* Tooltip */}
-            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20">
-              {dc.name}
+            {/* Enhanced tooltip */}
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-3 py-2 bg-foreground text-background text-xs rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 whitespace-nowrap z-20 shadow-lg">
+              <div className="font-semibold">{dc.name}</div>
+              <div className="flex items-center justify-center gap-1 mt-1">
+                <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-green-200">Active</span>
+              </div>
+              {/* Tooltip arrow */}
+              <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-foreground"></div>
             </div>
           </div>
         ))}
 
-        {/* Network connections (decorative lines) */}
+        {/* Network connections with improved styling */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none">
           <defs>
             <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="currentColor" stopOpacity="0" />
-              <stop offset="50%" stopColor="currentColor" stopOpacity="0.15" />
+              <stop offset="50%" stopColor="currentColor" stopOpacity="0.2" />
               <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
             </linearGradient>
           </defs>
@@ -100,19 +106,26 @@ export const DatacenterMap = () => {
                 x2={nextDc.x}
                 y2={nextDc.y}
                 stroke="url(#connectionGradient)"
-                strokeWidth="1"
-                className="text-primary"
+                strokeWidth="1.5"
+                className="text-primary opacity-60"
               />
             );
           })}
         </svg>
       </div>
       
-      {/* Legend */}
-      <div className="p-4 text-center">
-        <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-          <div className="w-2 h-2 bg-primary rounded-full"></div>
-          <span>Active Datacenters ({datacenters.length} locations)</span>
+      {/* Enhanced legend */}
+      <div className="p-4 text-center border-t bg-card/50">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+            <span>Active Datacenters ({datacenters.length} locations)</span>
+          </div>
+          <div className="hidden sm:block w-px h-4 bg-border"></div>
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span>99.9% Uptime Guarantee</span>
+          </div>
         </div>
       </div>
     </Card>

@@ -29,8 +29,8 @@ export const TimedNotification = () => {
   if (!showNotification) return null;
 
   return (
-    <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2 duration-500">
-      <Card className="w-80 p-4 shadow-lg border-2 bg-background">
+    <div className="fixed top-4 right-4 left-4 sm:left-auto z-50 animate-in slide-in-from-top-2 duration-500">
+      <Card className="w-full sm:w-80 max-w-sm p-4 shadow-lg border-2 bg-background ml-auto">
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
