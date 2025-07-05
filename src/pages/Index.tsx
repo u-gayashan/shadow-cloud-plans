@@ -17,7 +17,7 @@ const Index = () => {
 
   const handleViewNewPlans = () => {
     setShowNotification(false);
-    navigate("/dashboard");
+    navigate("/vps-plans");
   };
 
 
