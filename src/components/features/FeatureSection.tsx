@@ -1,27 +1,36 @@
-import { Server, Shield, Zap, Globe } from "lucide-react";
 import { RadioCards } from "@radix-ui/themes";
 import { useState } from "react";
 
 const features = [
   {
-    icon: Server,
-    title: "High Performance",
-    description: "Enterprise-grade hardware with RAID-10 storage and high-speed networking"
-  },
-  {
-    icon: Shield,
-    title: "Secure & Reliable",
-    description: "99.9% uptime guarantee with advanced security measures and monitoring"
-  },
-  {
-    icon: Zap,
-    title: "Instant Deployment",
-    description: "Deploy your VPS in minutes with our automated provisioning system"
-  },
-  {
-    icon: Globe,
+    image: "/lovable-uploads/bc30e1b3-cc8b-4dc2-8a55-15ee964895aa.png",
     title: "Global Network",
-    description: "Multiple datacenter locations across North America for optimal performance"
+    description: "Choose from 8+ worldwide datacenters for optimal latency and performance."
+  },
+  {
+    image: "/lovable-uploads/56f6eaf8-0340-4d58-aed8-2027d1005fb3.png",
+    title: "High Performance",
+    description: "Enterprise-grade hardware with RAID-10 storage and high-speed networking."
+  },
+  {
+    image: "/lovable-uploads/d4d249ce-245e-4249-854a-788a5a175f6a.png",
+    title: "Easy Management",
+    description: "Intuitive control panel with one-click deployments and automated backups."
+  },
+  {
+    image: "/lovable-uploads/17a08f2a-3e9a-44cd-a9f1-8a21007c18b6.png",
+    title: "Secure & Reliable",
+    description: "99.9% uptime guarantee with advanced security measures and monitoring."
+  },
+  {
+    image: "/lovable-uploads/6c35d015-82c0-4d5c-bc25-6095ed7c2396.png",
+    title: "24/7 Support",
+    description: "Expert technical support available around the clock to assist you."
+  },
+  {
+    image: "/lovable-uploads/7096f7c1-6b7f-4b1f-905d-43ba8830ed47.png",
+    title: "Lightning Fast",
+    description: "Deploy your VPS in minutes with our automated provisioning system."
   }
 ];
 
@@ -41,17 +50,21 @@ export const FeatureSection = () => {
           color="gray"
           size="3"
         >
-          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {features.map((feature, index) => (
               <RadioCards.Item key={index} value={index.toString()}>
-                <div className="flex items-start gap-4 p-2">
-                  {/* Icon container */}
-                  <div className="shrink-0 w-12 h-12 md:w-14 md:h-14 bg-primary/5 rounded-lg flex items-center justify-center">
-                    <feature.icon className="w-6 h-6 md:w-7 md:h-7 text-primary" />
+                <div className="flex flex-col items-center text-center p-4">
+                  {/* Image container */}
+                  <div className="shrink-0 w-16 h-16 md:w-20 md:h-20 mb-4 flex items-center justify-center">
+                    <img 
+                      src={feature.image} 
+                      alt={feature.title}
+                      className="w-12 h-12 md:w-16 md:h-16 object-contain"
+                    />
                   </div>
                   
                   {/* Content */}
-                  <div className="flex-1 min-w-0">
+                  <div className="flex-1">
                     <h3 className="text-lg md:text-xl font-bold mb-2 text-foreground">
                       {feature.title}
                     </h3>
