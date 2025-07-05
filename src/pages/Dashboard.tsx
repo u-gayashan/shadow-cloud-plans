@@ -2,244 +2,331 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { ArrowLeft, Server, HardDrive, Cpu, Network, MapPin, Shield } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
+import { 
+  ArrowLeft, 
+  Server, 
+  HardDrive, 
+  Cpu, 
+  Network, 
+  MapPin, 
+  Shield,
+  Power,
+  RotateCcw,
+  Play,
+  Square,
+  RefreshCw,
+  Settings,
+  Activity,
+  Globe
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-const kvmPlans = [
-  {
-    name: "1 GB KVM VPS",
-    price: "$10.96",
-    period: "/year",
-    cpu: "1 vCPU Core",
-    storage: "20 GB SSD Storage",
-    ram: "1 GB RAM",
-    transfer: "2 TB",
-    port: "1Gbps",
-    access: "Full Root Access",
-    ip: "1 IPv4 Address",
-    virtualization: "KVM/SolusVM",
-    popular: false
-  },
-  {
-    name: "2 GB KVM VPS",
-    price: "$17.66",
-    period: "/year",
-    cpu: "2 vCPU Cores",
-    storage: "30 GB SSD Storage",
-    ram: "2 GB RAM",
-    transfer: "4 TB",
-    port: "1Gbps",
-    access: "Full Root Access",
-    ip: "1 IPv4 Address",
-    virtualization: "KVM/SolusVM",
-    popular: true
-  },
-  {
-    name: "3.5 GB KVM VPS",
-    price: "$29.89",
-    period: "/year",
-    cpu: "3 vCPU Cores",
-    storage: "60 GB SSD Storage",
-    ram: "3.5 GB RAM",
-    transfer: "5 TB",
-    port: "1Gbps",
-    access: "Full Root Access",
-    ip: "1 IPv4 Address",
-    virtualization: "KVM/SolusVM",
-    popular: false
-  },
-  {
-    name: "5 GB KVM VPS",
-    price: "$54.99",
-    period: "/year",
-    cpu: "4 vCPU Cores",
-    storage: "100 GB SSD Storage",
-    ram: "5 GB RAM",
-    transfer: "10 TB",
-    port: "1Gbps",
-    access: "Full Root Access",
-    ip: "1 IPv4 Address",
-    virtualization: "KVM/SolusVM",
-    popular: false
-  }
-];
-
-const locations = [
-  "Los Angeles DC-03", "San Jose", "Seattle", "Chicago", 
-  "Dallas", "New York", "Ashburn", "Toronto"
-];
 
 const Dashboard = () => {
   const navigate = useNavigate();
+
+  const serverInfo = {
+    hostname: "racknerd-cfcfea8",
+    ip: "107.173.53.148",
+    status: "Online",
+    os: "AlmaLinux 8 64 Bit",
+    virtualization: "KVM",
+    node: "NYRN233KVM",
+    uptime: "45 days, 12 hours"
+  };
+
+  const systemSpecs = {
+    memory: { used: 1, total: 1, unit: "GB" },
+    swap: { used: 0, total: 1, unit: "GB" },
+    diskSpace: { used: 3.96, total: 20, unit: "GB" },
+    bandwidth: { used: 64.73, total: 1950, unit: "GB" },
+    ipv4: 1,
+    ipv6: 0
+  };
+
+  const usagePercentages = {
+    disk: Math.round((systemSpecs.diskSpace.used / systemSpecs.diskSpace.total) * 100),
+    bandwidth: Math.round((systemSpecs.bandwidth.used / systemSpecs.bandwidth.total) * 100),
+    memory: Math.round((systemSpecs.memory.used / systemSpecs.memory.total) * 100)
+  };
+
+  const controlActions = [
+    { id: "reboot", label: "Reboot", icon: RotateCcw, variant: "outline", color: "text-blue-600" },
+    { id: "shutdown", label: "Shutdown", icon: Square, variant: "outline", color: "text-red-600" },
+    { id: "boot", label: "Boot", icon: Play, variant: "outline", color: "text-green-600" },
+    { id: "reinstall", label: "Reinstall", icon: RefreshCw, variant: "outline", color: "text-orange-600" },
+    { id: "vnc", label: "VNC", icon: Globe, variant: "outline", color: "text-purple-600" },
+    { id: "rescue", label: "Rescue", icon: Shield, variant: "outline", color: "text-indigo-600" }
+  ];
 
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="px-4 md:px-8 py-4">
-          <div className="flex items-center gap-4">
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={() => navigate("/")}
-              className="gap-2"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => navigate("/")}
+                className="gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back to Home
+              </Button>
+              <div className="h-6 w-px bg-border" />
+              <div>
+                <h1 className="text-xl md:text-2xl font-bold">{serverInfo.hostname}</h1>
+                <p className="text-sm text-muted-foreground">({serverInfo.ip})</p>
+              </div>
+            </div>
+            <Button size="sm" variant="outline" className="gap-2">
+              <RefreshCw className="w-4 h-4" />
+              Refresh
             </Button>
-            <div className="h-6 w-px bg-border" />
-            <h1 className="text-2xl font-bold">KVM VPS Dashboard</h1>
           </div>
         </div>
       </div>
 
-      {/* New Release Banner */}
-      <Alert className="mx-4 md:mx-8 mt-6 border-green-200 bg-green-50 text-green-800">
-        <AlertDescription>
-          🎉 <strong>New KVM VPS Plans Now Available!</strong> Enjoy better performance, more features, and competitive pricing with our latest offerings.
-        </AlertDescription>
-      </Alert>
+      <div className="px-4 md:px-8 py-6">
+        <div className="max-w-7xl mx-auto space-y-6">
+          {/* Status Overview */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <div>
+                    <p className="text-sm font-medium">Status</p>
+                    <p className="text-lg font-bold text-green-600">{serverInfo.status}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-      {/* Plans Grid */}
-      <div className="px-4 md:px-8 py-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">KVM VPS Plans</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              High-performance KVM virtualization with full root access and SSD storage. 
-              Perfect for developers and businesses requiring reliable infrastructure.
-            </p>
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <Server className="w-5 h-5 text-primary" />
+                  <div>
+                    <p className="text-sm font-medium">Operating System</p>
+                    <p className="text-sm font-semibold">{serverInfo.os}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <Network className="w-5 h-5 text-primary" />
+                  <div>
+                    <p className="text-sm font-medium">IPv4 Address</p>
+                    <p className="text-sm font-semibold">{systemSpecs.ipv4}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <Activity className="w-5 h-5 text-primary" />
+                  <div>
+                    <p className="text-sm font-medium">Uptime</p>
+                    <p className="text-sm font-semibold">{serverInfo.uptime}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {kvmPlans.map((plan, index) => (
-              <Card 
-                key={index}
-                className={`relative hover:shadow-xl transition-all duration-300 ${
-                  plan.popular ? 'ring-2 ring-primary shadow-lg scale-105' : ''
-                }`}
-              >
-                {plan.popular && (
-                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground px-3 py-1">
-                    Best Value
-                  </Badge>
-                )}
-
-                <CardHeader className="text-center pb-4">
-                  <CardTitle className="text-xl font-bold">{plan.name}</CardTitle>
-                  <div className="text-4xl font-bold text-primary">
-                    {plan.price}
-                    <span className="text-lg font-normal text-muted-foreground">{plan.period}</span>
+          {/* System Resources */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">System Resources</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium">Memory Usage</span>
+                    <span className="text-sm text-muted-foreground">
+                      {systemSpecs.memory.used} / {systemSpecs.memory.total} {systemSpecs.memory.unit}
+                    </span>
                   </div>
-                </CardHeader>
+                  <Progress value={usagePercentages.memory} className="h-2" />
+                  <p className="text-xs text-muted-foreground">{usagePercentages.memory}% used</p>
+                </div>
 
-                <CardContent className="space-y-4">
-                  <div className="space-y-3 text-sm">
-                    <div className="flex items-center gap-3">
-                      <Cpu className="w-4 h-4 text-primary shrink-0" />
-                      <span>{plan.cpu}</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <HardDrive className="w-4 h-4 text-primary shrink-0" />
-                      <span>{plan.storage}</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Server className="w-4 h-4 text-primary shrink-0" />
-                      <span>{plan.ram}</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Network className="w-4 h-4 text-primary shrink-0" />
-                      <span>{plan.transfer} @ {plan.port}</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Shield className="w-4 h-4 text-primary shrink-0" />
-                      <span>{plan.access}</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <MapPin className="w-4 h-4 text-primary shrink-0" />
-                      <span>{plan.ip}</span>
-                    </div>
-                  </div>
+                <Separator />
 
-                  <div className="pt-2 border-t">
-                    <p className="text-xs text-muted-foreground mb-3">
-                      <strong>Virtualization:</strong> {plan.virtualization}
-                    </p>
-                    
-                    <Button 
-                      className={`w-full ${plan.popular ? 'bg-primary hover:bg-primary/90' : ''}`}
-                      variant={plan.popular ? 'default' : 'outline'}
-                    >
-                      Deploy Now
-                    </Button>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium">Disk Usage</span>
+                    <span className="text-sm text-muted-foreground">
+                      {systemSpecs.diskSpace.used} / {systemSpecs.diskSpace.total} {systemSpecs.diskSpace.unit}
+                    </span>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                  <Progress value={usagePercentages.disk} className="h-2" />
+                  <p className="text-xs text-muted-foreground">{usagePercentages.disk}% used</p>
+                </div>
+
+                <Separator />
+
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium">Bandwidth Usage</span>
+                    <span className="text-sm text-muted-foreground">
+                      {systemSpecs.bandwidth.used} / {systemSpecs.bandwidth.total} {systemSpecs.bandwidth.unit}
+                    </span>
+                  </div>
+                  <Progress value={usagePercentages.bandwidth} className="h-2" />
+                  <p className="text-xs text-muted-foreground">{usagePercentages.bandwidth}% used</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Server Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <p className="text-muted-foreground">Hostname</p>
+                    <p className="font-medium">{serverInfo.hostname}</p>
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground">IP Address</p>
+                    <p className="font-medium">{serverInfo.ip}</p>
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground">Virtualization</p>
+                    <p className="font-medium">{serverInfo.virtualization}</p>
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground">Node</p>
+                    <p className="font-medium">{serverInfo.node}</p>
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground">IPv6 Address</p>
+                    <p className="font-medium">{systemSpecs.ipv6}</p>
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground">Swap</p>
+                    <p className="font-medium">{systemSpecs.swap.used} / {systemSpecs.swap.total} {systemSpecs.swap.unit}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
-          {/* Deployment Locations */}
-          <Card className="mb-8">
+          {/* Control Actions */}
+          <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <MapPin className="w-5 h-5" />
-                Available Deployment Locations
-              </CardTitle>
+              <CardTitle className="text-lg">Server Controls</CardTitle>
               <CardDescription>
-                Choose from our global network of datacenters for optimal performance
+                Manage your server with these control options
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {locations.map((location, index) => (
-                  <div 
-                    key={index}
-                    className="flex items-center gap-2 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                {controlActions.map((action) => (
+                  <Button
+                    key={action.id}
+                    variant={action.variant as any}
+                    className="h-20 flex-col gap-2 hover:shadow-md transition-all"
                   >
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-sm font-medium">{location}</span>
-                  </div>
+                    <action.icon className={`w-6 h-6 ${action.color}`} />
+                    <span className="text-xs font-medium">{action.label}</span>
+                  </Button>
                 ))}
               </div>
             </CardContent>
           </Card>
 
-          {/* Features */}
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">KVM Virtualization</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Hardware-level virtualization for maximum performance and isolation with full root access.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">SSD Storage</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  High-speed SSD storage ensures faster boot times and improved application performance.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">24/7 Support</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Round-the-clock technical support to help you with any questions or issues.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          {/* Advanced Settings */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Management</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Tabs defaultValue="settings" className="w-full">
+                <TabsList className="grid w-full grid-cols-6">
+                  <TabsTrigger value="settings">Settings</TabsTrigger>
+                  <TabsTrigger value="cdrom">CD-ROM</TabsTrigger>
+                  <TabsTrigger value="drivers">Drivers</TabsTrigger>
+                  <TabsTrigger value="hostname">Hostname</TabsTrigger>
+                  <TabsTrigger value="network">Network</TabsTrigger>
+                  <TabsTrigger value="api">API</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="settings" className="mt-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-sm font-medium">APIC</label>
+                        <select className="w-full mt-1 p-2 border rounded-md bg-background">
+                          <option>On</option>
+                          <option>Off</option>
+                        </select>
+                      </div>
+                      
+                      <div>
+                        <label className="text-sm font-medium">ACPI</label>
+                        <select className="w-full mt-1 p-2 border rounded-md bg-background">
+                          <option>On</option>
+                          <option>Off</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-sm font-medium">Boot Order</label>
+                        <select className="w-full mt-1 p-2 border rounded-md bg-background">
+                          <option>(1) Hard Disk (2) CD-ROM</option>
+                          <option>(1) CD-ROM (2) Hard Disk</option>
+                        </select>
+                      </div>
+                      
+                      <div>
+                        <label className="text-sm font-medium">Network Card</label>
+                        <select className="w-full mt-1 p-2 border rounded-md bg-background">
+                          <option>Virtio</option>
+                          <option>E1000</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="cdrom" className="mt-6">
+                  <p className="text-muted-foreground">CD-ROM management options will be available here.</p>
+                </TabsContent>
+                
+                <TabsContent value="drivers" className="mt-6">
+                  <p className="text-muted-foreground">Driver configuration options will be available here.</p>
+                </TabsContent>
+                
+                <TabsContent value="hostname" className="mt-6">
+                  <p className="text-muted-foreground">Hostname configuration options will be available here.</p>
+                </TabsContent>
+                
+                <TabsContent value="network" className="mt-6">
+                  <p className="text-muted-foreground">Network configuration options will be available here.</p>
+                </TabsContent>
+                
+                <TabsContent value="api" className="mt-6">
+                  <p className="text-muted-foreground">API configuration options will be available here.</p>
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
