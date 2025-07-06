@@ -107,18 +107,6 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="border-t bg-muted/30">
-        <div className="max-w-4xl mx-auto px-4 md:px-8 py-8 text-center">
-          <h3 className="text-lg md:text-xl font-bold mb-2">Ready to Get Started?</h3>
-          <p className="text-muted-foreground mb-4 text-sm md:text-base">
-            Join thousands of satisfied customers who trust our cloud infrastructure.
-          </p>
-          <Button size="lg" className="px-8">
-            Deploy Your First VPS
-          </Button>
-        </div>
-      </div>
     </footer>
   );
 };

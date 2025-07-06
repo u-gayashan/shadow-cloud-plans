@@ -95,6 +95,16 @@
     @apply bg-background text-foreground;
   }
 
+  /* Hide scrollbars */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  html {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
   .datacenter-pulse {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }

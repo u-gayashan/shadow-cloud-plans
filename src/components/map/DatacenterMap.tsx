@@ -1,62 +1,28 @@
 import { Card } from "@/components/ui/card";
 
 const datacenters = [
-  { name: "Los Angeles DC-03", x: "15%", y: "60%" },
-  { name: "San Jose", x: "12%", y: "55%" },
-  { name: "Seattle", x: "18%", y: "35%" },
-  { name: "Chicago", x: "45%", y: "45%" },
-  { name: "Dallas", x: "40%", y: "65%" },
-  { name: "New York", x: "55%", y: "40%" },
-  { name: "Ashburn", x: "58%", y: "45%" },
-  { name: "Toronto", x: "52%", y: "35%" },
+  { name: "Los Angeles DC-03", x: "20%", y: "70%" },
+  { name: "San Jose", x: "15%", y: "65%" },
+  { name: "Seattle", x: "18%", y: "45%" },
+  { name: "Chicago", x: "50%", y: "55%" },
+  { name: "Dallas", x: "45%", y: "75%" },
+  { name: "New York", x: "65%", y: "50%" },
+  { name: "Ashburn", x: "68%", y: "55%" },
+  { name: "Toronto", x: "58%", y: "40%" },
 ];
 
 export const DatacenterMap = () => {
   return (
     <Card className="relative w-full max-w-5xl mx-auto bg-gradient-to-b from-card to-muted/20 border-2">
-      <div className="aspect-[2/1] relative overflow-hidden rounded-lg bg-gradient-to-br from-background via-muted/10 to-muted/30">
-        {/* OpenStreetMap-style background with improved styling */}
-        <div className="absolute inset-0 opacity-40">
-          <svg viewBox="0 0 800 400" className="w-full h-full">
-            {/* Improved North America outline */}
-            <path
-              d="M120 280 
-                 Q140 200 180 180 
-                 Q220 160 280 170 
-                 Q320 150 380 160 
-                 Q420 140 480 150 
-                 Q540 135 600 145 
-                 Q640 130 680 140 
-                 L680 200 
-                 Q670 240 650 260 
-                 Q620 280 580 290 
-                 Q540 300 500 295 
-                 Q460 300 420 295 
-                 Q380 300 340 290 
-                 Q300 295 260 285 
-                 Q220 290 180 280 
-                 Q150 285 120 280 Z"
-              fill="currentColor"
-              stroke="currentColor"
-              strokeWidth="2"
-              className="text-foreground"
-            />
-            {/* Great Lakes region */}
-            <ellipse cx="450" cy="220" rx="30" ry="15" fill="currentColor" className="text-foreground opacity-50" />
-            <ellipse cx="470" cy="210" rx="15" ry="8" fill="currentColor" className="text-foreground opacity-50" />
-          </svg>
-        </div>
-
-        {/* Grid overlay for map-like appearance */}
-        <div className="absolute inset-0 opacity-10">
-          <svg viewBox="0 0 100 50" className="w-full h-full">
-            {[...Array(11)].map((_, i) => (
-              <line key={`v${i}`} x1={i * 10} y1="0" x2={i * 10} y2="50" stroke="currentColor" strokeWidth="0.3" />
-            ))}
-            {[...Array(6)].map((_, i) => (
-              <line key={`h${i}`} x1="0" y1={i * 10} x2="100" y2={i * 10} stroke="currentColor" strokeWidth="0.3" />
-            ))}
-          </svg>
+      <div className="aspect-[2/1] relative overflow-hidden rounded-lg">
+        {/* Map background image */}
+        <div className="absolute inset-0">
+          <img 
+            src="/lovable-uploads/cb86f027-e116-4ebd-ab92-e5b3aac41e1c.png" 
+            alt="North America Map"
+            className="w-full h-full object-cover opacity-30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/20 via-transparent to-muted/20"></div>
         </div>
 
         {/* Datacenter indicators with improved animations */}

@@ -91,6 +91,19 @@ const Index = () => {
         </div>
       </section>
 
+      {/* CTA Section */}
+      <section className="px-4 md:px-8 py-12 md:py-16 border-t bg-muted/30">
+        <div className="max-w-4xl mx-auto text-center">
+          <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready to Get Started?</h3>
+          <p className="text-muted-foreground mb-8 text-lg max-w-2xl mx-auto">
+            Join thousands of satisfied customers who trust our cloud infrastructure.
+          </p>
+          <Button size="lg" className="px-8 text-lg">
+            Deploy Your First VPS
+          </Button>
+        </div>
+      </section>
+
       {/* Footer */}
       <Footer />
     </div>
