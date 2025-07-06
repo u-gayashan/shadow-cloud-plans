@@ -62,82 +62,83 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       {/* Header */}
       <div className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="px-4 md:px-8 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 md:gap-4 min-w-0">
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => navigate("/")}
-                className="gap-2"
+                className="gap-2 shrink-0"
               >
                 <ArrowLeft className="w-4 h-4" />
-                Back to Home
+                <span className="hidden sm:inline">Back to Home</span>
+                <span className="sm:hidden">Back</span>
               </Button>
               <div className="h-6 w-px bg-border" />
-              <div>
-                <h1 className="text-xl md:text-2xl font-bold">{serverInfo.hostname}</h1>
-                <p className="text-sm text-muted-foreground">({serverInfo.ip})</p>
+              <div className="min-w-0">
+                <h1 className="text-lg md:text-2xl font-bold truncate">{serverInfo.hostname}</h1>
+                <p className="text-xs md:text-sm text-muted-foreground truncate">({serverInfo.ip})</p>
               </div>
             </div>
-            <Button size="sm" variant="outline" className="gap-2">
+            <Button size="sm" variant="outline" className="gap-2 shrink-0">
               <RefreshCw className="w-4 h-4" />
-              Refresh
+              <span className="hidden sm:inline">Refresh</span>
             </Button>
           </div>
         </div>
       </div>
 
       <div className="px-4 md:px-8 py-6">
-        <div className="max-w-7xl mx-auto space-y-6">
+        <div className="max-w-7xl mx-auto space-y-4 md:space-y-6">
           {/* Status Overview */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <div>
-                    <p className="text-sm font-medium">Status</p>
-                    <p className="text-lg font-bold text-green-600">{serverInfo.status}</p>
+              <CardContent className="p-3 md:p-4">
+                <div className="flex items-center gap-2 md:gap-3">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse shrink-0"></div>
+                  <div className="min-w-0">
+                    <p className="text-xs md:text-sm font-medium">Status</p>
+                    <p className="text-sm md:text-lg font-bold text-green-600 truncate">{serverInfo.status}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <Server className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="text-sm font-medium">Operating System</p>
-                    <p className="text-sm font-semibold">{serverInfo.os}</p>
+              <CardContent className="p-3 md:p-4">
+                <div className="flex items-center gap-2 md:gap-3">
+                  <Server className="w-4 h-4 md:w-5 md:h-5 text-primary shrink-0" />
+                  <div className="min-w-0">
+                    <p className="text-xs md:text-sm font-medium">OS</p>
+                    <p className="text-xs md:text-sm font-semibold truncate">{serverInfo.os}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <Network className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="text-sm font-medium">IPv4 Address</p>
-                    <p className="text-sm font-semibold">{systemSpecs.ipv4}</p>
+              <CardContent className="p-3 md:p-4">
+                <div className="flex items-center gap-2 md:gap-3">
+                  <Network className="w-4 h-4 md:w-5 md:h-5 text-primary shrink-0" />
+                  <div className="min-w-0">
+                    <p className="text-xs md:text-sm font-medium">IPv4</p>
+                    <p className="text-xs md:text-sm font-semibold truncate">{systemSpecs.ipv4}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <Activity className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="text-sm font-medium">Uptime</p>
-                    <p className="text-sm font-semibold">{serverInfo.uptime}</p>
+              <CardContent className="p-3 md:p-4">
+                <div className="flex items-center gap-2 md:gap-3">
+                  <Activity className="w-4 h-4 md:w-5 md:h-5 text-primary shrink-0" />
+                  <div className="min-w-0">
+                    <p className="text-xs md:text-sm font-medium">Uptime</p>
+                    <p className="text-xs md:text-sm font-semibold truncate">{serverInfo.uptime}</p>
                   </div>
                 </div>
               </CardContent>
@@ -145,7 +146,7 @@ const Dashboard = () => {
           </div>
 
           {/* System Resources */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">System Resources</CardTitle>
@@ -195,7 +196,7 @@ const Dashboard = () => {
                 <CardTitle className="text-lg">Server Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                   <div>
                     <p className="text-muted-foreground">Hostname</p>
                     <p className="font-medium">{serverInfo.hostname}</p>
@@ -234,14 +235,14 @@ const Dashboard = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3">
                 {controlActions.map((action) => (
                   <Button
                     key={action.id}
                     variant={action.variant as any}
-                    className="h-20 flex-col gap-2 hover:shadow-md transition-all"
+                    className="h-16 md:h-20 flex-col gap-1 md:gap-2 hover:shadow-md transition-all"
                   >
-                    <action.icon className={`w-6 h-6 ${action.color}`} />
+                    <action.icon className={`w-4 h-4 md:w-6 md:h-6 ${action.color}`} />
                     <span className="text-xs font-medium">{action.label}</span>
                   </Button>
                 ))}
@@ -256,13 +257,13 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent>
               <Tabs defaultValue="settings" className="w-full">
-                <TabsList className="grid w-full grid-cols-6">
-                  <TabsTrigger value="settings">Settings</TabsTrigger>
-                  <TabsTrigger value="cdrom">CD-ROM</TabsTrigger>
-                  <TabsTrigger value="drivers">Drivers</TabsTrigger>
-                  <TabsTrigger value="hostname">Hostname</TabsTrigger>
-                  <TabsTrigger value="network">Network</TabsTrigger>
-                  <TabsTrigger value="api">API</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-3 md:grid-cols-6">
+                  <TabsTrigger value="settings" className="text-xs md:text-sm">Settings</TabsTrigger>
+                  <TabsTrigger value="cdrom" className="text-xs md:text-sm">CD-ROM</TabsTrigger>
+                  <TabsTrigger value="drivers" className="text-xs md:text-sm">Drivers</TabsTrigger>
+                  <TabsTrigger value="hostname" className="text-xs md:text-sm">Hostname</TabsTrigger>
+                  <TabsTrigger value="network" className="text-xs md:text-sm">Network</TabsTrigger>
+                  <TabsTrigger value="api" className="text-xs md:text-sm">API</TabsTrigger>
                 </TabsList>
                 
                 <TabsContent value="settings" className="mt-6">

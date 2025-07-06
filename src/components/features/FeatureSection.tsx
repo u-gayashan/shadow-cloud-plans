@@ -53,18 +53,18 @@ export const FeatureSection = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {features.map((feature, index) => (
               <RadioCards.Item key={index} value={index.toString()}>
-                <div className="flex flex-col items-center text-center p-4">
+                <div className="flex items-start gap-4 p-4">
                   {/* Image container */}
-                  <div className="shrink-0 w-16 h-16 md:w-20 md:h-20 mb-4 flex items-center justify-center">
+                  <div className="shrink-0 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center">
                     <img 
                       src={feature.image} 
                       alt={feature.title}
-                      className="w-12 h-12 md:w-16 md:h-16 object-contain"
+                      className="w-10 h-10 md:w-12 md:h-12 object-contain"
                     />
                   </div>
                   
                   {/* Content */}
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h3 className="text-lg md:text-xl font-bold mb-2 text-foreground">
                       {feature.title}
                     </h3>

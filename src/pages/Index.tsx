@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,8 +12,17 @@ import { FeatureSection } from "@/components/features/FeatureSection";
 import { Footer } from "@/components/layout/Footer";
 
 const Index = () => {
-  const [showNotification, setShowNotification] = useState(true);
+  const [showNotification, setShowNotification] = useState(false);
   const navigate = useNavigate();
+
+  // Show banner after 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowNotification(true);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleViewNewPlans = () => {
     setShowNotification(false);
