@@ -1,14 +1,14 @@
 import { Card } from "@/components/ui/card";
 
 const datacenters = [
-  { name: "Los Angeles DC-03", x: "20%", y: "70%" },
-  { name: "San Jose", x: "15%", y: "65%" },
-  { name: "Seattle", x: "18%", y: "45%" },
-  { name: "Chicago", x: "50%", y: "55%" },
-  { name: "Dallas", x: "45%", y: "75%" },
-  { name: "New York", x: "65%", y: "50%" },
-  { name: "Ashburn", x: "68%", y: "55%" },
-  { name: "Toronto", x: "58%", y: "40%" },
+  { name: "Los Angeles DC-03", x: "12%", y: "62%" },
+  { name: "San Jose", x: "8%", y: "58%" },
+  { name: "Seattle", x: "10%", y: "25%" },
+  { name: "Chicago", x: "44%", y: "45%" },
+  { name: "Dallas", x: "38%", y: "65%" },
+  { name: "New York", x: "58%", y: "38%" },
+  { name: "Ashburn", x: "60%", y: "43%" },
+  { name: "Toronto", x: "52%", y: "28%" },
 ];
 
 export const DatacenterMap = () => {
@@ -20,9 +20,9 @@ export const DatacenterMap = () => {
           <img 
             src="/lovable-uploads/cb86f027-e116-4ebd-ab92-e5b3aac41e1c.png" 
             alt="North America Map"
-            className="w-full h-full object-cover opacity-30"
+            className="w-full h-full object-cover opacity-80"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-background/20 via-transparent to-muted/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-background/10 via-transparent to-background/10"></div>
         </div>
 
         {/* Datacenter indicators with improved animations */}
