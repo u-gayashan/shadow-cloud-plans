@@ -25,21 +25,31 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <TimedNotification />
       
-      {/* Release Notification */}
+      {/* Release Banner */}
       {showNotification && (
-        <Alert className="mb-6 mx-auto w-full max-w-screen-xl px-4 md:px-8 mt-4 border-primary/20 bg-primary/5">
-        <AlertDescription className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-2">
-          <span>🎉 <strong>New KVM VPS Plans </strong>Released! Better performance at lower prices.</span>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleViewNewPlans}
-            className="shrink-0 w-full sm:w-auto"
-          >
-            View New Plans
-          </Button>
-        </AlertDescription>
-        </Alert>
+        <div className="w-full bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
+          <div className="max-w-screen-xl mx-auto px-4 md:px-8 py-4">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3 text-center sm:text-left">
+                <div className="w-8 h-8 bg-primary-foreground/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-lg">🎉</span>
+                </div>
+                <div>
+                  <span className="font-semibold text-base sm:text-lg">New KVM VPS Plans Released!</span>
+                  <p className="text-primary-foreground/90 text-sm">Better performance at lower prices</p>
+                </div>
+              </div>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={handleViewNewPlans}
+                className="shrink-0 w-full sm:w-auto bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+              >
+                View New Plans
+              </Button>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Hero Section */}

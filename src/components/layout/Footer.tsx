@@ -39,14 +39,14 @@ export const Footer = () => {
     <footer className="bg-card border-t">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <Server className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold">CloudHost</span>
+              <span className="text-xl font-bold">rackode.cloud</span>
             </div>
             <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
               Reliable cloud infrastructure solutions for businesses of all sizes. 
@@ -57,7 +57,7 @@ export const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Mail className="w-4 h-4" />
-                <span>support@cloudhost.com</span>
+                <span>support@rackode.cloud</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Phone className="w-4 h-4" />
@@ -95,7 +95,7 @@ export const Footer = () => {
         {/* Footer Bottom */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <span>© {currentYear} CloudHost. All rights reserved.</span>
+            <span>© {currentYear} rackode.cloud. All rights reserved.</span>
           </div>
           
           <div className="flex items-center gap-4">
